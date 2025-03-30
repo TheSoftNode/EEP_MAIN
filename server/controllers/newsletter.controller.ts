@@ -23,7 +23,7 @@ export const subscribeToNewsletter = catchAsync(async (req: Request, res: Respon
             });
         }
 
-        const from = process.env.ADMIN_EMAIL || "noreply@eep.dev";
+        const from = process.env.ADMIN_EMAIL || "fstatazizi@gmail.com";
         const to = email;
 
         const data = {
@@ -36,7 +36,7 @@ export const subscribeToNewsletter = catchAsync(async (req: Request, res: Respon
         await sendMailToSubscriber.send("newsletter-subscription.ejs", "Thank you for subscribing to EEP updates! 🚀", []);
 
         // Send notification to admin
-        const adminEmail = process.env.ADMIN_EMAIL || "theo.uche2023@gmail.com";
+        const adminEmail = process.env.ADMIN_EMAIL || "fstatazizi@gmail.com" || "theo.uche2023@gmail.com";
         const adminData = {
             subscriberEmail: email,
             date: new Date().toISOString()

@@ -16,8 +16,8 @@ export const submitLearnerContact = catchAsync(async (req: Request, res: Respons
         }
 
         const from = `${fullName}<${email}>`;
-        const to = process.env.ADMIN_EMAIL || "theo.uche2023@gmail.com";
-        // const to = process.env.ADMIN_EMAIL || "fstatazizi@gmail.com";
+        // const to = process.env.ADMIN_EMAIL || "theo.uche2023@gmail.com";
+        const to = process.env.ADMIN_EMAIL || "fstatazizi@gmail.com";
 
         const data = {
             contact: {
@@ -65,8 +65,8 @@ export const submitBusinessContact = catchAsync(async (req: Request, res: Respon
         }
 
         const from = `${fullName}<${email}>`;
-        const to = process.env.ADMIN_EMAIL || "theo.uche2023@gmail.com";
-        // const to = process.env.ADMIN_EMAIL || "fstatazizi@gmail.com";
+        // const to = process.env.ADMIN_EMAIL || "theo.uche2023@gmail.com";
+        const to = process.env.ADMIN_EMAIL || "fstatazizi@gmail.com";
 
         const data = {
             contact: {
