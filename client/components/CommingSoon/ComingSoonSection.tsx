@@ -3,7 +3,8 @@
 import React, { useEffect, useState, FC } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Code, ArrowRight, Bell, CheckCircle } from 'lucide-react';
+import { Code, ArrowRight, Bell, CheckCircle, AlertCircle } from 'lucide-react';
+import axios from 'axios';
 
 interface ComingSoonSectionProps {
     title?: string;
@@ -31,6 +32,8 @@ const ComingSoonSection: FC<ComingSoonSectionProps> = ({
 }) => {
     const [email, setEmail] = useState<string>('');
     const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const [subscriptionError, setSubscriptionError] = useState<string | null>(null);
     const [timeLeft, setTimeLeft] = useState<{
         days: number;
         hours: number;
@@ -70,18 +73,54 @@ const ComingSoonSection: FC<ComingSoonSectionProps> = ({
         return () => clearInterval(timer);
     }, [launchDateValue]);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
-        if (email) {
-            setIsSubscribed(true);
-            setEmail('');
-            // Here you would typically handle the email subscription
-            console.log('Subscribing email:', email);
+
+        // Basic validation
+        if (!email) {
+            setSubscriptionError('Please enter your email address');
+            return;
+        }
+
+        // Email format validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setSubscriptionError('Please enter a valid email address');
+            return;
+        }
+
+        try {
+            setIsSubmitting(true);
+            setSubscriptionError(null);
+
+            // Make API call to subscribe endpoint
+            const response = await axios.post('http://localhost:8000/api/v1/eep/newsletter/subscribe', {
+                email
+            });
+
+            if (response.data.status === 'success') {
+                setIsSubscribed(true);
+                setEmail('');
+            } else {
+                setSubscriptionError('Something went wrong. Please try again.');
+            }
+        } catch (error) {
+            console.error('Subscription error:', error);
+
+            // Check if it's an axios error with a response
+            if (axios.isAxiosError(error) && error.response) {
+                // Use error message from server if available
+                setSubscriptionError(error.response.data?.message || 'Failed to subscribe. Please try again later.');
+            } else {
+                setSubscriptionError('Failed to subscribe. Please try again later.');
+            }
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
     return (
-        <div className="relative  py-20 flex flex-col items-center justify-center overflow-hidden bg-slate-100/80">
+        <div className="relative py-20 flex flex-col items-center justify-center overflow-hidden bg-slate-100/80">
             {/* Sophisticated background elements */}
             <div className="absolute inset-0 z-0 overflow-hidden">
                 {/* Subtle gradient overlay */}
@@ -194,15 +233,35 @@ const ComingSoonSection: FC<ComingSoonSectionProps> = ({
                                         placeholder="Enter your email"
                                         className="flex-grow text-sm"
                                         required
+                                        disabled={isSubmitting}
                                     />
                                     <Button
                                         type="submit"
                                         className="whitespace-nowrap text-xs sm:text-sm bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700"
+                                        disabled={isSubmitting}
                                     >
-                                        Notify Me
-                                        <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                                        {isSubmitting ? (
+                                            <>
+                                                <span className="mr-2">Subscribing</span>
+                                                <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg>
+                                            </>
+                                        ) : (
+                                            <>
+                                                Notify Me
+                                                <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                                            </>
+                                        )}
                                     </Button>
                                 </div>
+                                {subscriptionError && (
+                                    <div className="mt-2 flex items-start text-xs text-red-600">
+                                        <AlertCircle className="h-3.5 w-3.5 mr-1 flex-shrink-0 mt-0.5" />
+                                        <span>{subscriptionError}</span>
+                                    </div>
+                                )}
                             </form>
                         </div>
                     ) : showSubscribe && isSubscribed ? (
@@ -213,8 +272,6 @@ const ComingSoonSection: FC<ComingSoonSectionProps> = ({
                         </div>
                     ) : null}
                 </div>
-
-
             </div>
         </div>
     );

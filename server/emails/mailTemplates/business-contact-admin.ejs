@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f5f3ff;
+            /* indigo-50 */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #e0e7ff;
+            /* indigo-100 */
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #4f46e5, #4338ca, #3730a3);
+            /* indigo-600 to indigo-800 */
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        .header p {
+            margin: 10px 0 0 0;
+            color: #e0e7ff;
+            /* indigo-100 */
+        }
+
+        /* Application ID */
+        .application-id {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        /* Priority Badge */
+        .priority-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: #fee2e2;
+            /* red-100 */
+            color: #dc2626;
+            /* red-600 */
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #dc2626;
+            /* red-600 */
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+        }
+
+        /* Content */
+        .content {
+            padding: 30px;
+            background-color: #ffffff;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 20px;
+            background-color: #f8fafc;
+            /* slate-50 */
+            border-radius: 6px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            /* slate-200 */
+        }
+
+        .section-title {
+            color: #4338ca;
+            /* indigo-700 */
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .section-content {
+            color: #334155;
+            /* slate-700 */
+        }
+
+        .section-content a {
+            color: #4f46e5;
+            /* indigo-600 */
+            text-decoration: none;
+        }
+
+        .section-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Project Details Section */
+        .project-section {
+            background-color: #f5f3ff;
+            /* indigo-50 */
+            border-left: 4px solid #6366f1;
+            /* indigo-500 */
+        }
+
+        /* Button */
+        .action-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #4f46e5, #4338ca);
+            /* indigo-600 to indigo-700 */
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .action-button:hover {
+            background: linear-gradient(135deg, #4338ca, #3730a3);
+            /* indigo-700 to indigo-800 */
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #4f46e5, #4338ca, #3730a3);
+            /* indigo-600 to indigo-800 */
+            color: #e0e7ff;
+            /* indigo-100 */
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        /* Timestamp */
+        .timestamp {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            .email-container {
+                width: 100%;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .action-button {
+                display: block;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>New Business Partnership Inquiry 🚀</h1>
+            <p>A business has requested project mentorship</p>
+            <div class="application-id">INQ-B-<%= Math.floor(100000 + Math.random() * 900000) %>
+            </div>
+            <div class="priority-badge">
+                <div class="pulse-dot"></div>
+                New Project Inquiry
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <div class="section-title">👤 Contact Person</div>
+                <div class="section-content">
+                    <%= contact.fullName %>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📧 Email Address</div>
+                <div class="section-content">
+                    <a href="mailto:<%= contact.email %>">
+                        <%= contact.email %>
+                    </a>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🏢 Company/Organization</div>
+                <div class="section-content">
+                    <%= contact.company %>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📊 Project Type</div>
+                <div class="section-content">
+                    <%= contact.projectType || "Not specified" %>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🔍 Current Project Status</div>
+                <div class="section-content">
+                    <%= contact.projectStatus || "Not specified" %>
+                </div>
+            </div>
+
+            <div class="section project-section">
+                <div class="section-title">💡 Project Details & Mentorship Needs</div>
+                <div class="section-content">
+                    <%= contact.projectDetails %>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <p>Next Steps:</p>
+                <a href="#" class="action-button">
+                    Schedule Initial Consultation
+                </a>
+                <p style="margin-top: 5px; font-size: 12px; color: #64748b;">
+                    <span class="timestamp">Received <%= new Date(date).toLocaleDateString() %> at <%= new
+                                Date(date).toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Enterprise Empowerment Platform | Business Partnership Portal</p>
+            <p>&copy; <%= new Date().getFullYear() %> HitoAI Limited. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

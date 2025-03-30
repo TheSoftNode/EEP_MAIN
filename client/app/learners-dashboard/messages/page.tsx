@@ -1,4 +1,4 @@
-import LearnerMessages from '@/components/EEP_V2/LearnersDashboard/LearnerMessages'
+import LearnerMessages from '@/components/LearnersDashboard/LearnerMessages'
 import React from 'react'
 
 type Props = {}

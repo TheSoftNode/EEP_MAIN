@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f5f3ff;
+            /* indigo-50 */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #e0e7ff;
+            /* indigo-100 */
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #4f46e5, #4338ca, #3730a3);
+            /* indigo-600 to indigo-800 */
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        .header p {
+            margin: 10px 0 0 0;
+            color: #e0e7ff;
+            /* indigo-100 */
+        }
+
+        /* Application ID */
+        .application-id {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        /* Priority Badge */
+        .priority-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: #fee2e2;
+            /* red-100 */
+            color: #dc2626;
+            /* red-600 */
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #dc2626;
+            /* red-600 */
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+        }
+
+        /* Content */
+        .content {
+            padding: 30px;
+            background-color: #ffffff;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 20px;
+            background-color: #f8fafc;
+            /* slate-50 */
+            border-radius: 6px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            /* slate-200 */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            color: #4338ca;
+            /* indigo-700 */
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .section-content {
+            color: #334155;
+            /* slate-700 */
+        }
+
+        .section-content a {
+            color: #4f46e5;
+            /* indigo-600 */
+            text-decoration: none;
+        }
+
+        .section-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Project Details Section */
+        .project-section {
+            background-color: #f5f3ff;
+            /* indigo-50 */
+            border-left: 4px solid #6366f1;
+            /* indigo-500 */
+        }
+
+        /* Button */
+        .action-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #4f46e5, #4338ca);
+            /* indigo-600 to indigo-700 */
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .action-button:hover {
+            background: linear-gradient(135deg, #4338ca, #3730a3);
+            /* indigo-700 to indigo-800 */
+        }
+
+        /* Action Buttons Container */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        /* Secondary Button */
+        .secondary-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(79, 70, 229, 0.1);
+            color: #4f46e5 !important;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin: 0;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            border: 1px solid rgba(79, 70, 229, 0.2);
+        }
+
+        .secondary-button:hover {
+            background: rgba(79, 70, 229, 0.15);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #4f46e5, #4338ca, #3730a3);
+            /* indigo-600 to indigo-800 */
+            color: #e0e7ff;
+            /* indigo-100 */
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        /* Timestamp */
+        .timestamp {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            .email-container {
+                width: 100%;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .action-button {
+                display: block;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>New Business Partnership Application 🚀</h1>
+            <p>A business has applied for project guidance and mentorship</p>
+            <div class="application-id">APP-<%= Math.floor(100000 + Math.random() * 900000) %>
+            </div>
+            <div class="priority-badge">
+                <div class="pulse-dot"></div>
+                Requires Review
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <div class="section-title">👤 Contact Person</div>
+                <div class="section-content">
+                    <%= application.fullName %>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📧 Email Address</div>
+                <div class="section-content">
+                    <a href="mailto:<%= application.email %>">
+                        <%= application.email %>
+                    </a>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📱 Phone Number</div>
+                <div class="section-content">
+                    <%= application.phone %>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🏢 Company Information</div>
+                <div class="section-content">
+                    <strong>Company:</strong>
+                    <%= application.companyName %><br>
+                        <strong>Position:</strong>
+                        <%= application.position %><br>
+                            <strong>Size:</strong>
+                            <%= application.companySize %><br>
+                                <strong>Industry:</strong>
+                                <%= application.industry %>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🔍 Project Information</div>
+                <div class="section-content">
+                    <strong>Project Type:</strong>
+                    <%= application.projectType %><br>
+                        <strong>Current Status:</strong>
+                        <%= application.projectStatus %>
+                </div>
+            </div>
+
+            <div class="section project-section">
+                <div class="section-title">💡 Project Details & Requirements</div>
+                <div class="section-content">
+                    <%= application.requirements %>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <p>Next Steps:</p>
+                <div class="action-buttons">
+                    <a href="#" class="action-button">
+                        Approve Application
+                    </a>
+                    <a href="#" class="secondary-button">
+                        Request More Info
+                    </a>
+                </div>
+                <p style="margin-top: 5px; font-size: 12px; color: #64748b;">
+                    <span class="timestamp">Received <%= new Date(date).toLocaleDateString() %> at <%= new
+                                Date(date).toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Enterprise Empowerment Platform | Business Partnership Portal</p>
+            <p>&copy; <%= new Date().getFullYear() %> HitoAI Limited. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

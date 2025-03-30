@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        /* Base styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f3ff;
+            /* indigo-50 */
+        }
+
+        /* Container */
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #e0e7ff;
+            /* indigo-100 */
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #4f46e5, #4338ca, #3730a3);
+            /* indigo-600 to indigo-800 */
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        .header p {
+            margin: 10px 0 0 0;
+            color: #e0e7ff;
+            /* indigo-100 */
+        }
+
+        /* Content */
+        .content {
+            padding: 30px;
+            background-color: #ffffff;
+        }
+
+        .greeting {
+            font-size: 20px;
+            color: #4338ca;
+            /* indigo-700 */
+            margin-bottom: 20px;
+        }
+
+        .message {
+            color: #334155;
+            /* slate-700 */
+            margin-bottom: 25px;
+        }
+
+        /* Next Steps Box */
+        .steps-box {
+            background-color: #f5f3ff;
+            /* indigo-50 */
+            border-left: 4px solid #6366f1;
+            /* indigo-500 */
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .steps-box h2 {
+            margin-top: 0;
+            color: #4338ca;
+            /* indigo-700 */
+            font-size: 18px;
+        }
+
+        .steps-box ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .steps-box li {
+            margin-bottom: 10px;
+            color: #334155;
+            /* slate-700 */
+        }
+
+        /* Resources Box */
+        .resources-box {
+            background-color: #f5f3ff;
+            /* indigo-50 */
+            border-left: 4px solid #4338ca;
+            /* indigo-600 */
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 14px;
+            color: #312e81;
+            /* indigo-900 */
+        }
+
+        .resources-box h3 {
+            margin-top: 0;
+            font-size: 16px;
+        }
+
+        .resources-box ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .resources-box li {
+            margin-bottom: 8px;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #e0e7ff;
+            /* indigo-100 */
+            color: #4338ca;
+            /* indigo-700 */
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #4f46e5, #4338ca, #3730a3);
+            /* indigo-600 to indigo-800 */
+            color: #e0e7ff;
+            /* indigo-100 */
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .contact-info {
+            margin-top: 10px;
+            padding: 5px;
+        }
+
+        .contact-info a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 0 5px;
+            display: inline-block;
+        }
+
+        .contact-info a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Signature */
+        .signature {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e7ff;
+            /* indigo-100 */
+            color: #4338ca;
+            /* indigo-700 */
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            .email-container {
+                width: 100%;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Application Received! 🎉</h1>
+            <p>Thank you for applying to the Enterprise Engagement Program</p>
+            <div class="status-badge">Application Status: Under Review</div>
+        </div>
+
+        <div class="content">
+            <div class="greeting">
+                Hello <%= applicant.fullName %>, 👋
+            </div>
+
+            <div class="message">
+                Thank you for applying to the Enterprise Engagement Program (EEP)! We're excited about your interest in
+                joining our community of cloud and AI professionals.
+            </div>
+
+            <div class="steps-box">
+                <h2>📋 Next Steps</h2>
+                <ul>
+                    <li>Our team will review your application within 2 weeks</li>
+                    <li>You'll receive an email about scheduling your initial assessment</li>
+                    <li>Please note: Do not make any payment until your application is approved</li>
+                </ul>
+            </div>
+
+            <div class="message">
+                While you wait, you can explore our learning resources and prepare for your journey:
+            </div>
+
+            <div class="resources-box">
+                <h3>Helpful Resources</h3>
+                <ul>
+                    <li>Review the program curriculum</li>
+                    <li>Join our tech community on Whatsapp</li>
+                </ul>
+            </div>
+
+            <div class="message">
+                If you have any questions or need to update your application, please don't hesitate to reach out.
+            </div>
+
+            <div class="signature">
+                Best regards,<br>
+                <strong>The EEP Team</strong>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Need assistance? Contact us:</p>
+            <div class="contact-info">
+                <a href="mailto:info@hitoai.ai">Email Us</a>
+                <a href="https://www.linkedin.com/company/hitoai-limited/" target="_blank">LinkedIn</a>
+            </div>
+            <p>&copy; <%= new Date().getFullYear() %> HitoAI Limited. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

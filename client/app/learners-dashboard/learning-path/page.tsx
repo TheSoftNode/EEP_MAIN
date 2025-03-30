@@ -1,4 +1,4 @@
-import LearningPath from '@/components/EEP_V2/LearnersDashboard/LearningPath'
+import LearningPath from '@/components/LearnersDashboard/LearningPath'
 import React from 'react'
 
 type Props = {}

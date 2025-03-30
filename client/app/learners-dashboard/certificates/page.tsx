@@ -1,4 +1,4 @@
-import CertificatesPage from '@/components/EEP_V2/LearnersDashboard/Certificate'
+import CertificatesPage from '@/components/LearnersDashboard/Certificate'
 import React from 'react'
 
 type Props = {}

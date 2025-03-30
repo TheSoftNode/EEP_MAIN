@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        /* Base styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f3ff;
+            /* indigo-50 */
+        }
+
+        /* Container */
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #e0e7ff;
+            /* indigo-100 */
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #4f46e5, #4338ca, #3730a3);
+            /* indigo-600 to indigo-800 */
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        .header p {
+            margin: 10px 0 0 0;
+            color: #e0e7ff;
+            /* indigo-100 */
+        }
+
+        /* Application ID */
+        .application-id {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        /* Priority Badge */
+        .priority-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: #fee2e2;
+            /* red-100 */
+            color: #dc2626;
+            /* red-600 */
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #dc2626;
+            /* red-600 */
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+        }
+
+        /* Content */
+        .content {
+            padding: 30px;
+            background-color: #ffffff;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 20px;
+            background-color: #f8fafc;
+            /* slate-50 */
+            border-radius: 6px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            /* slate-200 */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            color: #4338ca;
+            /* indigo-700 */
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-content {
+            color: #334155;
+            /* slate-700 */
+        }
+
+        .section-content a {
+            color: #4f46e5;
+            /* indigo-600 */
+            text-decoration: none;
+        }
+
+        .section-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Interests Section */
+        .interests-section {
+            background-color: #f5f3ff;
+            /* indigo-50 */
+            border-left: 4px solid #6366f1;
+            /* indigo-500 */
+        }
+
+        /* Button */
+        .action-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #4f46e5, #4338ca);
+            /* indigo-600 to indigo-700 */
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .action-button:hover {
+            background: linear-gradient(135deg, #4338ca, #3730a3);
+            /* indigo-700 to indigo-800 */
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #4f46e5, #4338ca, #3730a3);
+            /* indigo-600 to indigo-800 */
+            color: #e0e7ff;
+            /* indigo-100 */
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        /* Timestamp */
+        .timestamp {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            .email-container {
+                width: 100%;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .action-button {
+                display: block;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>New EEP Application 🚀</h1>
+            <p>A new candidate has applied for the Enterprise Engagement Program</p>
+            <div class="application-id">APP-ID: EEP-<%= Math.floor(100000 + Math.random() * 900000) %>
+            </div>
+            <div class="priority-badge">
+                <div class="pulse-dot"></div>
+                New Application
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <div class="section-title">👤 Applicant Name</div>
+                <div class="section-content">
+                    <%= applicant.fullName %>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📧 Email Address</div>
+                <div class="section-content">
+                    <a href="mailto:<%= applicant.email %>">
+                        <%= applicant.email %>
+                    </a>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📱 Phone Number</div>
+                <div class="section-content">
+                    <%= applicant.phone %>
+                </div>
+            </div>
+
+            <div class="section interests-section">
+                <div class="section-title">💡 Areas of Interest</div>
+                <div class="section-content">
+                    <%= applicant.interests %>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <p>Next Steps:</p>
+                <a href="#" class="action-button">
+                    Review Application
+                </a>
+                <p style="margin-top: 5px; font-size: 12px; color: #64748b;">
+                    <span class="timestamp">Received <%= new Date().toLocaleDateString() %> at <%= new
+                                Date().toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Enterprise Engagement Program | Admin Portal</p>
+            <p>&copy; <%= new Date().getFullYear() %> HitoAI Limited. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

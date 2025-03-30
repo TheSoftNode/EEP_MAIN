@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useRouter } from 'next/navigation';
 import {
     Dialog,
     DialogContent,
@@ -61,6 +62,7 @@ export const LearnerApplicationForm: React.FC = () => {
     });
 
     const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+    const router = useRouter()
 
     const validateForm = (): boolean => {
         const newErrors: Partial<Record<keyof FormData, string>> = {};
@@ -128,7 +130,11 @@ export const LearnerApplicationForm: React.FC = () => {
         setIsSubmitting(true);
         try {
             // Simulated API call
-            const response = await fetch('https://hitoai-backend.onrender.com/api/v1/eep/apply', {
+            // const response = await fetch('https://hitoai-backend.onrender.com/api/v1/eep/apply', {
+            //     method: 'POST',
+            //     body: formDataToSend
+            // });
+            const response = await fetch('http://localhost:8000/api/v1/eep/apply', {
                 method: 'POST',
                 body: formDataToSend
             });
@@ -143,6 +149,9 @@ export const LearnerApplicationForm: React.FC = () => {
                 title: "Application Submitted",
                 description: "We'll review your application and get back to you soon.",
             });
+
+            router.push("/application-status")
+
             // Reset form
             setFormData({
                 fullName: '',

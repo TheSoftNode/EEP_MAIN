@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import {
     Building,
     CheckCircle2,
-    AlertTriangle,
     Loader2,
     User,
     Mail,
@@ -12,6 +11,9 @@ import {
     Briefcase,
     Users,
     Globe,
+    Code,
+    Compass,
+    Lightbulb
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,7 +34,6 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useToast } from '@/hooks/use-toast';
 import TermsAndConditions from '../utils/TermsAndConditions';
 
@@ -44,6 +45,8 @@ interface FormData {
     position: string;
     companySize: string;
     industry: string;
+    projectType: string;
+    projectStatus: string;
     requirements: string;
     acceptedTerms: boolean;
 }
@@ -59,6 +62,8 @@ export const BusinessApplicationForm: React.FC = () => {
         position: '',
         companySize: '',
         industry: '',
+        projectType: '',
+        projectStatus: '',
         requirements: '',
         acceptedTerms: false
     });
@@ -104,6 +109,7 @@ export const BusinessApplicationForm: React.FC = () => {
         return Object.keys(newErrors).length === 0;
     };
 
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -116,23 +122,15 @@ export const BusinessApplicationForm: React.FC = () => {
             return;
         }
 
-        const formDataToSend = new FormData();
-        formDataToSend.append("fullName", formData.fullName);
-        formDataToSend.append("email", formData.email);
-        formDataToSend.append("phone", formData.phone);
-        formDataToSend.append("companyName", formData.companyName);
-        formDataToSend.append("position", formData.position);
-        formDataToSend.append("companySize", formData.companySize);
-        formDataToSend.append("industry", formData.industry);
-        formDataToSend.append("requirements", formData.requirements);
-        formDataToSend.append("acceptedTerms", formData.acceptedTerms.toString());
-
         setIsSubmitting(true);
         try {
-            // Simulated API call
-            const response = await fetch('https://hitoai-backend.onrender.com/api/v1/eep/business/apply', {
+            // Send JSON instead of FormData
+            const response = await fetch('http://localhost:8000/api/v1/eep/business/apply', {
                 method: 'POST',
-                body: formDataToSend
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
             });
 
             if (!response.ok) {
@@ -154,6 +152,8 @@ export const BusinessApplicationForm: React.FC = () => {
                 position: '',
                 companySize: '',
                 industry: '',
+                projectType: '',
+                projectStatus: '',
                 requirements: '',
                 acceptedTerms: false
             });
@@ -185,7 +185,7 @@ export const BusinessApplicationForm: React.FC = () => {
                     Business Partnership
                 </CardTitle>
                 <CardDescription className="text-lg text-gray-600">
-                    Connect with skilled AI developers and find talent for your business needs
+                    Get expert guidance and mentorship for your project development
                 </CardDescription>
             </CardHeader>
             <CardContent className="relative z-10">
@@ -364,10 +364,66 @@ export const BusinessApplicationForm: React.FC = () => {
                                 )}
                             </div>
                         </div>
+                    </div>
+
+                    {/* Project Information */}
+                    <div className="space-y-6">
+                        <h3 className="text-lg font-medium text-indigo-900 border-b border-indigo-200 pb-2">Project Information</h3>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="relative">
+                                <Label htmlFor="projectType" className="text-sm font-medium mb-2 block text-gray-700">
+                                    Project Type
+                                </Label>
+                                <div className="relative">
+                                    <select
+                                        id="projectType"
+                                        value={formData.projectType}
+                                        onChange={(e) => {
+                                            setFormData(prev => ({ ...prev, projectType: e.target.value }));
+                                        }}
+                                        className="w-full pl-12 py-6 border rounded-md appearance-none border-indigo-200 focus:border-indigo-500 bg-white"
+                                    >
+                                        <option value="">Select project type</option>
+                                        <option value="ai-implementation">AI Implementation</option>
+                                        <option value="cloud-migration">Cloud Migration</option>
+                                        <option value="data-analytics">Data Analytics Solution</option>
+                                        <option value="software-development">Software Development</option>
+                                        <option value="process-automation">Process Automation</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <Code className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-500" size={18} />
+                                </div>
+                            </div>
+
+                            <div className="relative">
+                                <Label htmlFor="projectStatus" className="text-sm font-medium mb-2 block text-gray-700">
+                                    Current Project Status
+                                </Label>
+                                <div className="relative">
+                                    <select
+                                        id="projectStatus"
+                                        value={formData.projectStatus}
+                                        onChange={(e) => {
+                                            setFormData(prev => ({ ...prev, projectStatus: e.target.value }));
+                                        }}
+                                        className="w-full pl-12 py-6 border rounded-md appearance-none border-indigo-200 focus:border-indigo-500 bg-white"
+                                    >
+                                        <option value="">Select current status</option>
+                                        <option value="concept">Concept/Idea Stage</option>
+                                        <option value="planning">Planning Phase</option>
+                                        <option value="early-development">Early Development</option>
+                                        <option value="ongoing">Ongoing Project with Challenges</option>
+                                        <option value="scaling">Scaling Existing Solution</option>
+                                    </select>
+                                    <Compass className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-500" size={18} />
+                                </div>
+                            </div>
+                        </div>
 
                         <div className="relative">
                             <Label htmlFor="requirements" className="text-sm font-medium mb-2 block text-gray-700">
-                                Business Requirements
+                                Project Details & Business Requirements
                             </Label>
                             <div className="relative">
                                 <textarea
@@ -377,10 +433,11 @@ export const BusinessApplicationForm: React.FC = () => {
                                         setFormData(prev => ({ ...prev, requirements: e.target.value }));
                                         setErrors(prev => ({ ...prev, requirements: undefined }));
                                     }}
-                                    className={`w-full p-4 rounded-lg border ${errors.requirements ? "border-red-500" : "border-indigo-200"} focus:border-indigo-500 bg-white`}
-                                    placeholder="Describe your business requirements"
+                                    className={`w-full p-4 rounded-lg border ${errors.requirements ? "border-red-500" : "border-indigo-200"} focus:border-indigo-500 bg-white pl-12`}
+                                    placeholder="Describe your project, current challenges, and how our expertise could benefit your development process..."
                                     rows={4}
                                 />
+                                <Lightbulb className="absolute left-4 top-4 text-indigo-500" size={18} />
                             </div>
                             {errors.requirements && (
                                 <p className="text-sm text-red-500 mt-1">{errors.requirements}</p>
@@ -390,7 +447,7 @@ export const BusinessApplicationForm: React.FC = () => {
 
                     {/* Terms and Conditions */}
                     <div className="space-y-2">
-                        <h4 className="font-semibold text-gray-700">1. Terms and Conditions Agreement</h4>
+                        <h4 className="font-semibold text-gray-700">Terms and Conditions Agreement</h4>
                         <div className="flex items-center space-x-2">
                             <Checkbox
                                 id="terms"

@@ -3,7 +3,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ChevronLeft, Building, Users, Handshake, RocketIcon } from 'lucide-react';
+import { ChevronLeft, Building, Compass, Lightbulb, RocketIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { BusinessApplicationForm } from '@/components/Application/BusinessApplicationForm';
 
@@ -12,7 +12,7 @@ export default function BusinessApplicationPage() {
         <main className="min-h-screen relative overflow-hidden bg-gradient-to-b from-indigo-950 via-slate-900 to-indigo-950 pt-12">
             <Head>
                 <title>Business Application - Enterprise Empowerment Platform</title>
-                <meta name="description" content="Apply as a business to connect with skilled AI developers from our Enterprise Empowerment Platform." />
+                <meta name="description" content="Apply as a business to receive expert guidance and mentorship for your project development from our Enterprise Empowerment Platform." />
             </Head>
 
             {/* Sophisticated background elements */}
@@ -133,7 +133,7 @@ export default function BusinessApplicationPage() {
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">Business</span> Partnership
                         </h1>
                         <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-                            Connect with skilled AI developers and find talent for your enterprise needs
+                            Get expert guidance and mentorship to successfully develop your projects
                         </p>
                     </motion.div>
 
@@ -147,7 +147,7 @@ export default function BusinessApplicationPage() {
                         <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-indigo-500/20">
                             <h2 className="text-xl font-semibold text-white mb-6 flex items-center">
                                 <RocketIcon className="w-5 h-5 mr-2 text-indigo-400" />
-                                Partnership Process
+                                Mentorship Process
                             </h2>
                             <div className="flex flex-col md:flex-row justify-between items-start">
                                 <div className="flex flex-col items-center text-center mb-6 md:mb-0">
@@ -155,27 +155,27 @@ export default function BusinessApplicationPage() {
                                         <Building className="w-5 h-5 text-indigo-400" />
                                     </div>
                                     <h3 className="text-indigo-300 font-medium">Submit Application</h3>
-                                    <p className="text-gray-400 text-sm mt-1">Share your business needs</p>
+                                    <p className="text-gray-400 text-sm mt-1">Share your project needs</p>
                                 </div>
 
                                 <div className="hidden md:block w-16 h-0.5 bg-gradient-to-r from-indigo-500/20 to-violet-500/20 self-center"></div>
 
                                 <div className="flex flex-col items-center text-center mb-6 md:mb-0">
                                     <div className="w-12 h-12 rounded-full bg-indigo-900/80 flex items-center justify-center mb-2 border border-indigo-500/30">
-                                        <Users className="w-5 h-5 text-indigo-400" />
+                                        <Compass className="w-5 h-5 text-indigo-400" />
                                     </div>
-                                    <h3 className="text-indigo-300 font-medium">Talent Matching</h3>
-                                    <p className="text-gray-400 text-sm mt-1">Find skilled developers</p>
+                                    <h3 className="text-indigo-300 font-medium">Project Assessment</h3>
+                                    <p className="text-gray-400 text-sm mt-1">Expert review and guidance</p>
                                 </div>
 
                                 <div className="hidden md:block w-16 h-0.5 bg-gradient-to-r from-indigo-500/20 to-violet-500/20 self-center"></div>
 
                                 <div className="flex flex-col items-center text-center">
                                     <div className="w-12 h-12 rounded-full bg-indigo-900/80 flex items-center justify-center mb-2 border border-indigo-500/30">
-                                        <Handshake className="w-5 h-5 text-indigo-400" />
+                                        <Lightbulb className="w-5 h-5 text-indigo-400" />
                                     </div>
-                                    <h3 className="text-indigo-300 font-medium">Collaboration</h3>
-                                    <p className="text-gray-400 text-sm mt-1">Start working together</p>
+                                    <h3 className="text-indigo-300 font-medium">Implementation</h3>
+                                    <p className="text-gray-400 text-sm mt-1">Development with mentorship</p>
                                 </div>
                             </div>
                         </div>
@@ -195,8 +195,8 @@ export default function BusinessApplicationPage() {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.6 }}
                     >
-                        <p>Have questions about business partnerships?</p>
-                        <p>Contact us at <a href="mailto:partnerships@hitoai.com" className="text-indigo-400 hover:text-indigo-300 hover:underline">partnerships@hitoai.com</a></p>
+                        <p>Have questions about project mentorship?</p>
+                        <p>Contact us at <a href="mailto:info@hitoai.ai" className="text-indigo-400 hover:text-indigo-300 hover:underline">info@hitoai.ai</a></p>
                     </motion.div>
                 </div>
             </div>

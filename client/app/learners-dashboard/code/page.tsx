@@ -1,4 +1,4 @@
-import CodeEditor from '@/components/EEP_V2/LearnersDashboard/CodeEditor'
+import CodeEditor from '@/components/LearnersDashboard/CodeEditor'
 import React from 'react'
 
 type Props = {}

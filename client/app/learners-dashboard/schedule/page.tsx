@@ -1,4 +1,4 @@
-import Schedule from '@/components/EEP_V2/LearnersDashboard/Schedule'
+import Schedule from '@/components/LearnersDashboard/Schedule'
 import React from 'react'
 
 type Props = {}

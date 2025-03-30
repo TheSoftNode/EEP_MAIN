@@ -4,15 +4,19 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
+import Logo from '../Logo/Logo';
 
-export const Navbar = () => {
+export const Navbar = () =>
+{
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState('');
 
     // Handle scroll events for navbar styling and active section tracking
-    useEffect(() => {
-        const handleScroll = () => {
+    useEffect(() =>
+    {
+        const handleScroll = () =>
+        {
             // Change navbar style on scroll
             setScrolled(window.scrollY > 20);
 
@@ -20,11 +24,14 @@ export const Navbar = () => {
             const sections = ['features', 'how-it-works', 'testimonials', 'pricing'];
             let currentSection = '';
 
-            for (const section of sections) {
+            for (const section of sections)
+            {
                 const element = document.getElementById(section);
-                if (element) {
+                if (element)
+                {
                     const rect = element.getBoundingClientRect();
-                    if (rect.top <= 100 && rect.bottom >= 100) {
+                    if (rect.top <= 100 && rect.bottom >= 100)
+                    {
                         currentSection = section;
                         break;
                     }
@@ -39,9 +46,12 @@ export const Navbar = () => {
     }, []);
 
     // Close mobile menu when screen size changes to desktop
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth >= 640 && isMobileMenuOpen) {
+    useEffect(() =>
+    {
+        const handleResize = () =>
+        {
+            if (window.innerWidth >= 640 && isMobileMenuOpen)
+            {
                 setIsMobileMenuOpen(false);
             }
         };
@@ -87,22 +97,19 @@ export const Navbar = () => {
                     {/* Logo and Desktop Navigation */}
                     <div className="flex items-center">
                         {/* Logo with subtle animation */}
-                        <Link href="/" className="flex-shrink-0 flex items-center group">
-                            <div className="flex items-center space-x-1">
-                                <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-lg flex items-center justify-center transition-transform group-hover:scale-105 shadow-md">
-                                    <span className="text-white font-bold text-lg">E</span>
-                                    <div className="absolute -right-1 -top-1 w-3 h-3 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full"></div>
-                                </div>
-                                <span className="text-indigo-600 dark:text-indigo-400 font-bold text-xl tracking-tight pl-1">
-                                    EEP
-                                    {/* <span className="ml-1 text-xs font-medium px-1 py-0.5 bg-indigo-100 dark:bg-indigo-900/40 border border-indigo-200 dark:border-indigo-700/50 text-indigo-600 dark:text-indigo-400 rounded">BETA</span> */}
-                                </span>
-                            </div>
-                        </Link>
+
+                        <Logo
+                            variant={scrolled ? 'dark' : 'dark'}
+                            size="md"
+                            showText={false}
+                            animate={true}
+                            showBeta={false}
+                        />
 
                         {/* Desktop Navigation Links */}
                         <div className="hidden sm:ml-10 sm:flex sm:space-x-6">
-                            {navItems.map((item) => {
+                            {navItems.map((item) =>
+                            {
                                 const isActive = activeSection === item.href.substring(1);
                                 return (
                                     <Link
@@ -180,7 +187,8 @@ export const Navbar = () => {
                         variants={menuVariants}
                     >
                         <div className="px-2 pt-2 pb-3 space-y-1">
-                            {navItems.map((item) => {
+                            {navItems.map((item) =>
+                            {
                                 const isActive = activeSection === item.href.substring(1);
                                 return (
                                     <motion.div key={item.name} variants={itemVariants}>

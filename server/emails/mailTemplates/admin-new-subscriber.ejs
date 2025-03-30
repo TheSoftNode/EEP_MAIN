@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f5f3ff;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #e0e7ff;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #4f46e5, #4338ca, #3730a3);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        /* Content */
+        .content {
+            padding: 30px;
+            background-color: #ffffff;
+        }
+
+        .message {
+            color: #334155;
+            margin-bottom: 25px;
+        }
+
+        /* Subscriber Info */
+        .subscriber-info {
+            background-color: #f5f3ff;
+            border-left: 4px solid #6366f1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .subscriber-info h2 {
+            margin-top: 0;
+            color: #4338ca;
+            font-size: 18px;
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            width: 120px;
+            color: #4338ca;
+        }
+
+        .info-value {
+            color: #334155;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #4f46e5, #4338ca, #3730a3);
+            color: #e0e7ff;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>New Newsletter Subscriber</h1>
+        </div>
+
+        <div class="content">
+            <div class="message">
+                You have a new subscriber to the EEP newsletter.
+            </div>
+
+            <div class="subscriber-info">
+                <h2>Subscriber Details</h2>
+
+                <div class="info-row">
+                    <div class="info-label">Email:</div>
+                    <div class="info-value">
+                        <%= subscriberEmail %>
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">Date:</div>
+                    <div class="info-value">
+                        <%= new Date(date).toLocaleString() %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="message">
+                This is a notification of a new subscription. No action is required.
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>EEP Admin Portal</p>
+            <p>&copy; <%= new Date().getFullYear() %> HitoAI Limited. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

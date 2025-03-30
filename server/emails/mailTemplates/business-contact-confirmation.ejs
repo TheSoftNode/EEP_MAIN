@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f5f3ff;
+            /* indigo-50 */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #e0e7ff;
+            /* indigo-100 */
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #4f46e5, #4338ca, #3730a3);
+            /* indigo-600 to indigo-800 */
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        .header p {
+            margin: 10px 0 0 0;
+            color: #e0e7ff;
+            /* indigo-100 */
+        }
+
+        /* Content */
+        .content {
+            padding: 30px;
+            background-color: #ffffff;
+        }
+
+        .greeting {
+            font-size: 20px;
+            color: #4338ca;
+            /* indigo-700 */
+            margin-bottom: 20px;
+        }
+
+        .message {
+            color: #334155;
+            /* slate-700 */
+            margin-bottom: 25px;
+        }
+
+        /* Project Details Box */
+        .project-details {
+            background-color: #f5f3ff;
+            /* indigo-50 */
+            border-left: 4px solid #6366f1;
+            /* indigo-500 */
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .project-details h2 {
+            margin-top: 0;
+            color: #4338ca;
+            /* indigo-700 */
+            font-size: 18px;
+        }
+
+        .project-item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .project-label {
+            font-weight: bold;
+            min-width: 120px;
+            color: #4338ca;
+        }
+
+        .project-value {
+            color: #334155;
+        }
+
+        /* Next Steps */
+        .next-steps {
+            margin-top: 30px;
+        }
+
+        .next-steps h2 {
+            color: #4338ca;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .next-steps-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .next-steps-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            color: #334155;
+        }
+
+        .next-steps-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234338ca' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpolyline points='12 6 12 12 16 14'%3E%3C/polyline%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #e0e7ff;
+            /* indigo-100 */
+            color: #4338ca;
+            /* indigo-700 */
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #4f46e5, #4338ca, #3730a3);
+            /* indigo-600 to indigo-800 */
+            color: #e0e7ff;
+            /* indigo-100 */
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .contact-info {
+            margin-top: 10px;
+            padding: 5px;
+        }
+
+        .contact-info a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 0 5px;
+            display: inline-block;
+        }
+
+        .contact-info a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Signature */
+        .signature {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e7ff;
+            /* indigo-100 */
+            color: #4338ca;
+            /* indigo-700 */
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            .email-container {
+                width: 100%;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Thank You for Your Interest in EEP! 🚀</h1>
+            <p>We've received your project mentorship inquiry</p>
+            <div class="status-badge">Project Inquiry Received</div>
+        </div>
+
+        <div class="content">
+            <div class="greeting">
+                Hello <%= contact.fullName %>, 👋
+            </div>
+
+            <div class="message">
+                Thank you for your interest in the Enterprise Empowerment Platform (EEP) Business Partnership. We're
+                excited to learn about your project and explore how our expertise can help guide its development.
+            </div>
+
+            <div class="project-details">
+                <h2>📋 Your Project Information</h2>
+
+                <div class="project-item">
+                    <div class="project-label">Company:</div>
+                    <div class="project-value">
+                        <%= contact.company %>
+                    </div>
+                </div>
+
+                <% if (contact.projectType) { %>
+                    <div class="project-item">
+                        <div class="project-label">Project Type:</div>
+                        <div class="project-value">
+                            <%= contact.projectType %>
+                        </div>
+                    </div>
+                    <% } %>
+
+                        <% if (contact.projectStatus) { %>
+                            <div class="project-item">
+                                <div class="project-label">Current Status:</div>
+                                <div class="project-value">
+                                    <%= contact.projectStatus %>
+                                </div>
+                            </div>
+                            <% } %>
+            </div>
+
+            <div class="next-steps">
+                <h2>What Happens Next</h2>
+                <ul class="next-steps-list">
+                    <li>Our business development team will review your project details within 1-2 business days</li>
+                    <li>We'll schedule an initial consultation to discuss your specific needs and how we can best
+                        support you</li>
+                    <li>Based on the consultation, we'll provide a tailored mentorship proposal for your project</li>
+                </ul>
+            </div>
+
+            <div class="message">
+                In the meantime, feel free to browse our website to learn more about our approach to project mentorship
+                and development guidance. If you have any urgent questions, please don't hesitate to contact us
+                directly.
+            </div>
+
+            <div class="signature">
+                Best regards,<br>
+                <strong>The EEP Business Partnership Team</strong>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Need immediate assistance? Contact us:</p>
+            <div class="contact-info">
+                <a href="mailto:partnerships@hitoai.ai">Email Us</a>
+                <a href="https://www.linkedin.com/company/hitoai-limited/" target="_blank">LinkedIn</a>
+            </div>
+            <p>&copy; <%= new Date().getFullYear() %> HitoAI Limited. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -2,36 +2,27 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaLinkedin } from 'react-icons/fa';
+import axios from 'axios';
+import Logo from '../Logo/Logo';
 
-export const Footer = () => {
+export const Footer = () =>
+{
     const footerRef = useRef(null);
+    const [email, setEmail] = useState('');
+    const [subscriptionStatus, setSubscriptionStatus] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // useEffect(() => {
-    //     const observer = new IntersectionObserver(
-    //         (entries) => {
-    //             entries.forEach(entry => {
-    //                 if (entry.isIntersecting) {
-    //                     entry.target.classList.add('animate-in');
-    //                 }
-    //             });
-    //         },
-    //         { threshold: 0.1 }
-    //     );
-
-    //     const elements = document.querySelectorAll('.footer-animate');
-    //     elements.forEach(el => observer.observe(el));
-
-    //     return () => {
-    //         elements.forEach(el => observer.unobserve(el));
-    //     };
-    // }, []);
-    useEffect(() => {
+    useEffect(() =>
+    {
         const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
+            (entries) =>
+            {
+                entries.forEach(entry =>
+                {
+                    if (entry.isIntersecting)
+                    {
                         entry.target.classList.add('animate-in');
                     }
                 });
@@ -43,12 +34,64 @@ export const Footer = () => {
         elements.forEach(el => observer.observe(el));
 
         // Use disconnect() instead of unobserve() for safer cleanup
-        return () => {
+        return () =>
+        {
             observer.disconnect();
         };
     }, []);
 
     const getCurrentYear = () => new Date().getFullYear();
+
+    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    {
+        setEmail(e.target.value);
+    };
+
+    const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) =>
+    {
+        e.preventDefault();
+
+        // Basic validation
+        if (!email)
+        {
+            setSubscriptionStatus('Please enter your email address');
+            return;
+        }
+
+        // Email format validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email))
+        {
+            setSubscriptionStatus('Please enter a valid email address');
+            return;
+        }
+
+        try
+        {
+            setIsSubmitting(true);
+            // Make API call to subscribe endpoint
+            const response = await axios.post('http://localhost:8000/api/v1/eep/newsletter/subscribe', { email });
+
+            if (response.data.status === 'success')
+            {
+                setSubscriptionStatus('Thank you for subscribing!');
+                setEmail('');
+            }
+        } catch (error)
+        {
+            console.error('Subscription error:', error);
+            setSubscriptionStatus('Failed to subscribe. Please try again later.');
+        } finally
+        {
+            setIsSubmitting(false);
+
+            // Clear status message after 5 seconds
+            setTimeout(() =>
+            {
+                setSubscriptionStatus('');
+            }, 5000);
+        }
+    };
 
     return (
         <footer ref={footerRef} className="relative bg-slate-900 text-white overflow-hidden">
@@ -102,16 +145,16 @@ export const Footer = () => {
                         <div className="md:col-span-5 footer-animate" style={{ '--delay': '0s' } as React.CSSProperties}>
                             <div className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/30 rounded-xl p-6 h-full">
                                 <div className="flex items-center mb-4">
-                                    <div className="relative">
-                                        <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-lg flex items-center justify-center">
-                                            <span className="text-white font-bold text-xl">E</span>
-                                            <div className="absolute -right-1 -top-1 w-4 h-4 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full"></div>
-                                        </div>
-                                    </div>
+                                    <Logo
+                                        variant="light"
+                                        size="lg"
+                                        showText={false}
+                                        animate={false}
+                                    />
                                     <Link href={"/"}>
                                         <div className="ml-3">
                                             <div className="flex items-center">
-                                                <span className="text-2xl font-bold text-white">EEP</span>
+                                                <span className="text-2xl font-bold text-indigo-700">EEP</span>
                                                 {/* <span className="ml-2 text-xs font-medium px-1.5 py-0.5 bg-indigo-900/50 border border-indigo-700/50 rounded-md text-indigo-300">BETA</span> */}
                                             </div>
                                             <span className="text-xs text-slate-400">Enterprise Empowerment Platform</span>
@@ -147,8 +190,6 @@ export const Footer = () => {
 
                                 <div className="mt-6 pt-6 border-t border-slate-700/30">
                                     <div className="flex space-x-4">
-
-
                                         <motion.a
                                             href="https://www.linkedin.com/company/hitoai-limited/"
                                             target="_blank"
@@ -266,7 +307,6 @@ export const Footer = () => {
                                                     Contact
                                                 </a>
                                             </li>
-
                                         </ul>
                                     </div>
                                 </div>
@@ -301,25 +341,43 @@ export const Footer = () => {
 
                                         <div className="mt-5 pt-3 border-t border-slate-700/30">
                                             <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-3">Stay Updated</h4>
-                                            <div className="relative">
-                                                <input
-                                                    type="email"
-                                                    placeholder="Your email"
-                                                    className="w-full bg-slate-800/50 border border-slate-700/50 rounded-lg py-2 pl-3 pr-10 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50"
-                                                />
-                                                <button
-                                                    type="button"
-                                                    className="absolute top-0 right-0 h-full px-3 text-indigo-400 hover:text-indigo-300 transition-colors"
-                                                >
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                        <polyline points="12 5 19 12 12 19"></polyline>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <p className="text-xs text-slate-400 mt-2">
-                                                Get notified about new features and updates.
-                                            </p>
+                                            <form onSubmit={handleSubscribe}>
+                                                <div className="relative">
+                                                    <input
+                                                        type="email"
+                                                        placeholder="Your email"
+                                                        className="w-full bg-slate-800/50 border border-slate-700/50 rounded-lg py-2 pl-3 pr-10 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50"
+                                                        value={email}
+                                                        onChange={handleEmailChange}
+                                                        disabled={isSubmitting}
+                                                    />
+                                                    <button
+                                                        type="submit"
+                                                        className="absolute top-0 right-0 h-full px-3 text-indigo-400 hover:text-indigo-300 transition-colors disabled:opacity-50"
+                                                        disabled={isSubmitting}
+                                                    >
+                                                        {isSubmitting ? (
+                                                            <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                            </svg>
+                                                        ) : (
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                <polyline points="12 5 19 12 12 19"></polyline>
+                                                            </svg>
+                                                        )}
+                                                    </button>
+                                                </div>
+                                                {subscriptionStatus && (
+                                                    <p className={`text-xs mt-2 ${subscriptionStatus.includes('Thank you') ? 'text-green-400' : 'text-red-400'}`}>
+                                                        {subscriptionStatus}
+                                                    </p>
+                                                )}
+                                                <p className="text-xs text-slate-400 mt-2">
+                                                    Get notified about new features and updates.
+                                                </p>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

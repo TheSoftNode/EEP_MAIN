@@ -1,4 +1,4 @@
-import MentorCommunication from '@/components/EEP_V2/LearnersDashboard/MentorCommunication'
+import MentorCommunication from '@/components/LearnersDashboard/MentorCommunication'
 import React from 'react'
 
 type Props = {}
