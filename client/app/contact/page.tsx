@@ -8,24 +8,29 @@ import { LearnerContactForm } from '@/components/Contact/LearnerContactForm';
 import { BusinessContactForm } from '@/components/Contact/BusinessContactForm';
 import { SuccessMessage } from '@/components/Contact/SuccessMessage';
 import { ContactCategoryCards } from '@/components/Contact/ContactCategoryCards';
+import { API_URL } from '@/components/utils/config';
 
-const ContactPage = () => {
+const ContactPage = () =>
+{
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
     const [activeTab, setActiveTab] = useState<string>("learner");
 
-    useEffect(() => {
+    useEffect(() =>
+    {
         // Scroll to top when component mounts
         window.scrollTo(0, 0);
     }, []);
 
-    const handleSubmit = async (formData: any) => {
+    const handleSubmit = async (formData: any) =>
+    {
         setIsSubmitting(true);
 
-        try {
+        try
+        {
             const endpoint = activeTab === 'learner'
-                ? 'http://localhost:8000/api/v1/eep/contact/learner'
-                : 'http://localhost:8000/api/v1/eep/contact/business';
+                ? `${API_URL}/contact/learner`
+                : `${API_URL}/contact/business`;
 
             const response = await fetch(endpoint, {
                 method: 'POST',
@@ -35,21 +40,25 @@ const ContactPage = () => {
                 body: JSON.stringify(formData)
             });
 
-            if (!response.ok) {
+            if (!response.ok)
+            {
                 throw new Error('Network response was not ok');
             }
 
             setIsSubmitted(true);
             console.log('Form submitted for:', activeTab);
-        } catch (error) {
+        } catch (error)
+        {
             console.error('Error submitting form:', error);
             // Here you could add error handling UI
-        } finally {
+        } finally
+        {
             setIsSubmitting(false);
         }
     };
 
-    const resetForm = () => {
+    const resetForm = () =>
+    {
         setIsSubmitted(false);
     };
 

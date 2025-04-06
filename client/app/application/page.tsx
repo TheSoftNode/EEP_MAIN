@@ -7,7 +7,8 @@ import { ChevronLeft, Sparkles, Clock, BrainCircuit, RocketIcon } from 'lucide-r
 import { motion } from 'framer-motion';
 import LearnerApplicationForm from '@/components/Application/LearnerApplicationForm';
 
-export default function LearnerApplicationPage() {
+export default function LearnerApplicationPage()
+{
     return (
         <main className="min-h-screen relative overflow-hidden bg-gradient-to-b from-indigo-950 via-slate-900 to-indigo-950 pt-12">
             <Head>
@@ -197,7 +198,7 @@ export default function LearnerApplicationPage() {
                         transition={{ duration: 0.6, delay: 0.6 }}
                     >
                         <p>Have questions about the application process?</p>
-                        <p>Contact us at <a href="mailto:support@hitoai.com" className="text-indigo-400 hover:text-indigo-300 hover:underline">support@hitoai.com</a></p>
+                        <p>Contact us at <a href="mailto:info@hitoai.ai" className="text-indigo-400 hover:text-indigo-300 hover:underline">info@hitoai.ai</a></p>
                     </motion.div>
                 </div>
             </div>

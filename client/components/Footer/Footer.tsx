@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FaLinkedin } from 'react-icons/fa';
 import axios from 'axios';
 import Logo from '../Logo/Logo';
+import { API_URL } from '../utils/config';
 
 export const Footer = () =>
 {
@@ -70,7 +71,7 @@ export const Footer = () =>
         {
             setIsSubmitting(true);
             // Make API call to subscribe endpoint
-            const response = await axios.post('http://localhost:8000/api/v1/eep/newsletter/subscribe', { email });
+            const response = await axios.post(`${API_URL}/newsletter/subscribe`, { email });
 
             if (response.data.status === 'success')
             {

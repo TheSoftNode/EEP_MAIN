@@ -3,7 +3,8 @@ import { Button } from '@/components/ui/button';
 import { CheckCircle, Sparkles, Shield, Clock, Users, Zap, Award, Mail, Building, GraduationCap } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-export const PricingSectionNew: React.FC = () => {
+export const PricingSectionNew: React.FC = () =>
+{
     const sectionRef = useRef<HTMLDivElement>(null);
 
     const router = useRouter();
@@ -29,11 +30,15 @@ export const PricingSectionNew: React.FC = () => {
     //     };
     // }, []);
 
-    useEffect(() => {
+    useEffect(() =>
+    {
         const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
+            (entries) =>
+            {
+                entries.forEach(entry =>
+                {
+                    if (entry.isIntersecting)
+                    {
                         entry.target.classList.add('animate-in');
                     }
                 });
@@ -45,7 +50,8 @@ export const PricingSectionNew: React.FC = () => {
         cardElements.forEach(el => observer.observe(el));
 
         // Use disconnect() instead for safer cleanup
-        return () => {
+        return () =>
+        {
             observer.disconnect();
         };
     }, []);
@@ -64,6 +70,7 @@ export const PricingSectionNew: React.FC = () => {
                 { text: "Step-by-step development assistance", icon: <Zap className="h-4 w-4" /> },
                 { text: "EEP assistant bot for code acceleration", icon: <Shield className="h-4 w-4" /> }
             ],
+            href: "/application",
             cta: "Apply Now",
             icon: <GraduationCap className="h-6 w-6" />,
             highlighted: true,
@@ -84,6 +91,7 @@ export const PricingSectionNew: React.FC = () => {
                 { text: "Customized implementation", icon: <CheckCircle className="h-4 w-4" /> },
                 { text: "Ongoing maintenance & support", icon: <Award className="h-4 w-4" /> }
             ],
+            href: "/contact",
             cta: "Contact Sales",
             icon: <Building className="h-6 w-6" />,
             highlighted: false,
@@ -250,7 +258,7 @@ export const PricingSectionNew: React.FC = () => {
 
                                 <div className="mt-4">
                                     <Button
-                                        onClick={() => router.push("/application")}
+                                        onClick={() => router.push(plan.href)}
                                         className={`w-full shadow-sm text-xs sm:text-sm ${plan.highlighted
                                             ? 'bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 shadow-indigo-500/10'
                                             : 'bg-slate-800 hover:bg-slate-900'

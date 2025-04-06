@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Code, ArrowRight, Bell, CheckCircle, AlertCircle } from 'lucide-react';
 import axios from 'axios';
+import { API_URL } from '../utils/config';
 
 interface ComingSoonSectionProps {
     title?: string;
@@ -94,7 +95,7 @@ const ComingSoonSection: FC<ComingSoonSectionProps> = ({
             setSubscriptionError(null);
 
             // Make API call to subscribe endpoint
-            const response = await axios.post('http://localhost:8000/api/v1/eep/newsletter/subscribe', {
+            const response = await axios.post(`${API_URL}/newsletter/subscribe`, {
                 email
             });
 

@@ -7,13 +7,15 @@ import { FeaturesSection } from '@/components/Landing/FeaturesSection';
 import { HeroSection } from '@/components/Landing/HeroSection';
 import { HowItWorksSection } from '@/components/Landing/HowItWorksSection';
 import MasterySection from '@/components/Landing/MasterySection';
+import PartnersSection from '@/components/Landing/PartnersSection';
 import { PricingSectionNew } from '@/components/Landing/PricingSectionNew';
 import { TestimonialsSection } from '@/components/Landing/TestimonialsSection';
 import React from 'react';
 
 
 
-export default function HomePage() {
+export default function HomePage()
+{
     return (
         <>
 
@@ -25,6 +27,7 @@ export default function HomePage() {
                 <MasterySection />
                 <CombinedBenefitsSection />
                 <TestimonialsSection />
+                <PartnersSection />
                 <PricingSectionNew />
                 <CTASection />
             </main>

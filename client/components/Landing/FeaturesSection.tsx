@@ -3,26 +3,6 @@ import React, { useEffect, useRef } from 'react';
 export const FeaturesSection: React.FC = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
 
-    // Animation effect for feature cards
-    // useEffect(() => {
-    //     const observer = new IntersectionObserver(
-    //         (entries) => {
-    //             entries.forEach(entry => {
-    //                 if (entry.isIntersecting) {
-    //                     entry.target.classList.add('animate-in');
-    //                 }
-    //             });
-    //         },
-    //         { threshold: 0.1 }
-    //     );
-
-    //     const featureElements = document.querySelectorAll('.feature-card');
-    //     featureElements.forEach(el => observer.observe(el));
-
-    //     return () => {
-    //         featureElements.forEach(el => observer.unobserve(el));
-    //     };
-    // }, []);
 
     useEffect(() => {
         const observer = new IntersectionObserver(

@@ -1,16 +1,19 @@
 "use client"
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../Logo/Logo';
+import { ChevronDown } from 'lucide-react';
 
 export const Navbar = () =>
 {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState('');
+    const [isApplyDropdownOpen, setIsApplyDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     // Handle scroll events for navbar styling and active section tracking
     useEffect(() =>
@@ -60,11 +63,25 @@ export const Navbar = () =>
         return () => window.removeEventListener('resize', handleResize);
     }, [isMobileMenuOpen]);
 
+    useEffect(() =>
+    {
+        const handleClickOutside = (event: MouseEvent) =>
+        {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node))
+            {
+                setIsApplyDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
     const navItems = [
         { name: 'Features', href: '/#features' },
         { name: 'How It Works', href: '/#how-it-works' },
         { name: 'Testimonials', href: '/#testimonials' },
-        // { name: 'Pricing', href: '/#pricing' }
+        { name: 'Pricing', href: '/#pricing' }
     ];
 
     const menuVariants = {
@@ -85,6 +102,11 @@ export const Navbar = () =>
         visible: { opacity: 1, y: 0 }
     };
 
+    const dropdownVariants = {
+        hidden: { opacity: 0, y: -5, scale: 0.95 },
+        visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.2 } }
+    };
+
     return (
         <nav
             className={`fixed w-full z-50 transition-all duration-300 ${scrolled
@@ -97,7 +119,6 @@ export const Navbar = () =>
                     {/* Logo and Desktop Navigation */}
                     <div className="flex items-center">
                         {/* Logo with subtle animation */}
-
                         <Logo
                             variant={scrolled ? 'dark' : 'dark'}
                             size="md"
@@ -139,13 +160,52 @@ export const Navbar = () =>
                                 Log in
                             </Button>
                         </Link>
-                        <Link href="/auth/signup">
+
+                        {/* Apply Dropdown Button */}
+                        <div className="relative" ref={dropdownRef}>
                             <Button
-                                className="bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white shadow-md shadow-indigo-600/20 hover:shadow-lg hover:shadow-indigo-600/30 transition-all duration-200"
+                                className="bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white shadow-md shadow-indigo-600/20 hover:shadow-lg hover:shadow-indigo-600/30 transition-all duration-200 flex items-center gap-1"
+                                onClick={() => setIsApplyDropdownOpen(!isApplyDropdownOpen)}
+                                aria-expanded={isApplyDropdownOpen}
                             >
-                                Sign up
+                                Apply
+                                <ChevronDown
+                                    className={`h-4 w-4 transition-transform duration-200 ${isApplyDropdownOpen ? 'rotate-180' : ''}`}
+                                />
                             </Button>
-                        </Link>
+
+                            {/* Apply Dropdown Menu */}
+                            <AnimatePresence>
+                                {isApplyDropdownOpen && (
+                                    <motion.div
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit="hidden"
+                                        variants={dropdownVariants}
+                                        className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-slate-800 ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden"
+                                    >
+                                        <div className="py-1">
+                                            <Link href="/application">
+                                                <div
+                                                    className="block px-4 py-3 text-sm text-gray-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
+                                                    onClick={() => setIsApplyDropdownOpen(false)}
+                                                >
+                                                    Apply as a Learner
+                                                </div>
+                                            </Link>
+                                            <Link href="/business-application">
+                                                <div
+                                                    className="block px-4 py-3 text-sm text-gray-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
+                                                    onClick={() => setIsApplyDropdownOpen(false)}
+                                                >
+                                                    Apply as a Business
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -211,7 +271,7 @@ export const Navbar = () =>
                             variants={itemVariants}
                             className="px-4 py-4 border-t border-slate-200 dark:border-slate-800"
                         >
-                            <div className="grid grid-cols-2 gap-3">
+                            <div className="grid grid-cols-1 gap-3">
                                 <Link href="/auth/login" className="block w-full">
                                     <Button
                                         variant="outline"
@@ -220,11 +280,20 @@ export const Navbar = () =>
                                         Log in
                                     </Button>
                                 </Link>
-                                <Link href="/auth/signup" className="block w-full">
+
+                                {/* Mobile Apply Options - Shown as separate buttons */}
+                                <Link href="/application" className="block w-full">
                                     <Button
                                         className="w-full justify-center bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white shadow-md shadow-indigo-600/20"
                                     >
-                                        Sign up
+                                        Apply as a Learner
+                                    </Button>
+                                </Link>
+                                <Link href="/business-application" className="block w-full">
+                                    <Button
+                                        className="w-full justify-center bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-200 dark:hover:bg-indigo-900/50"
+                                    >
+                                        Apply as a Business
                                     </Button>
                                 </Link>
                             </div>

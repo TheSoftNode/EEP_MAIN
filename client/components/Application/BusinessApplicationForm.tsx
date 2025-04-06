@@ -1,43 +1,49 @@
 "use client"
 
 import React, { useState } from 'react';
-import {
-    Building,
-    CheckCircle2,
-    Loader2,
-    User,
-    Mail,
-    Phone,
-    Briefcase,
-    Users,
-    Globe,
-    Code,
-    Compass,
-    Lightbulb
-} from 'lucide-react';
+import
+    {
+        Building,
+        CheckCircle2,
+        Loader2,
+        User,
+        Mail,
+        Phone,
+        Briefcase,
+        Users,
+        Globe,
+        Code,
+        Compass,
+        Lightbulb
+    } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+import
+    {
+        Dialog,
+        DialogContent,
+        DialogDescription,
+        DialogHeader,
+        DialogTitle,
+        DialogTrigger,
+    } from "@/components/ui/dialog";
+import
+    {
+        Card,
+        CardContent,
+        CardDescription,
+        CardHeader,
+        CardTitle,
+    } from "@/components/ui/card";
 import { useToast } from '@/hooks/use-toast';
 import TermsAndConditions from '../utils/TermsAndConditions';
+import { useRouter } from 'next/navigation';
+import { API_URL } from '../utils/config';
 
-interface FormData {
+interface FormData
+{
     fullName: string;
     email: string;
     phone: string;
@@ -51,9 +57,11 @@ interface FormData {
     acceptedTerms: boolean;
 }
 
-export const BusinessApplicationForm: React.FC = () => {
+export const BusinessApplicationForm: React.FC = () =>
+{
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const router = useRouter();
     const [formData, setFormData] = useState<FormData>({
         fullName: '',
         email: '',
@@ -70,38 +78,48 @@ export const BusinessApplicationForm: React.FC = () => {
 
     const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
 
-    const validateForm = (): boolean => {
+    const validateForm = (): boolean =>
+    {
         const newErrors: Partial<Record<keyof FormData, string>> = {};
 
-        if (!formData.fullName.trim()) {
+        if (!formData.fullName.trim())
+        {
             newErrors.fullName = 'Full name is required';
         }
 
-        if (!formData.email.trim()) {
+        if (!formData.email.trim())
+        {
             newErrors.email = 'Email is required';
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email))
+        {
             newErrors.email = 'Invalid email address';
         }
 
-        if (!formData.phone.trim()) {
+        if (!formData.phone.trim())
+        {
             newErrors.phone = 'Phone number is required';
-        } else if (!/^\+?[\d\s-]{10,}$/.test(formData.phone)) {
+        } else if (!/^\+?[\d\s-]{10,}$/.test(formData.phone))
+        {
             newErrors.phone = 'Invalid phone number';
         }
 
-        if (!formData.companyName.trim()) {
+        if (!formData.companyName.trim())
+        {
             newErrors.companyName = 'Company name is required';
         }
 
-        if (!formData.position.trim()) {
+        if (!formData.position.trim())
+        {
             newErrors.position = 'Position is required';
         }
 
-        if (!formData.industry.trim()) {
+        if (!formData.industry.trim())
+        {
             newErrors.industry = 'Industry is required';
         }
 
-        if (!formData.acceptedTerms) {
+        if (!formData.acceptedTerms)
+        {
             newErrors.acceptedTerms = 'You must accept the terms and conditions';
         }
 
@@ -110,10 +128,12 @@ export const BusinessApplicationForm: React.FC = () => {
     };
 
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) =>
+    {
         e.preventDefault();
 
-        if (!validateForm()) {
+        if (!validateForm())
+        {
             toast({
                 title: "Validation Error",
                 description: "Please check all required fields",
@@ -123,9 +143,10 @@ export const BusinessApplicationForm: React.FC = () => {
         }
 
         setIsSubmitting(true);
-        try {
+        try
+        {
             // Send JSON instead of FormData
-            const response = await fetch('http://localhost:8000/api/v1/eep/business/apply', {
+            const response = await fetch(`${API_URL}/business/apply`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -133,7 +154,8 @@ export const BusinessApplicationForm: React.FC = () => {
                 body: JSON.stringify(formData)
             });
 
-            if (!response.ok) {
+            if (!response.ok)
+            {
                 throw new Error('Network response was not ok');
             }
 
@@ -143,6 +165,9 @@ export const BusinessApplicationForm: React.FC = () => {
                 title: "Application Submitted",
                 description: "We'll review your business needs and get back to you soon.",
             });
+
+            router.push("/application-status")
+
             // Reset form
             setFormData({
                 fullName: '',
@@ -157,14 +182,16 @@ export const BusinessApplicationForm: React.FC = () => {
                 requirements: '',
                 acceptedTerms: false
             });
-        } catch (error) {
+        } catch (error)
+        {
             toast({
                 title: "Submission Failed",
                 description: "Please try again later",
                 variant: "destructive"
             });
             console.log(error)
-        } finally {
+        } finally
+        {
             setIsSubmitting(false);
         }
     };
@@ -202,7 +229,8 @@ export const BusinessApplicationForm: React.FC = () => {
                                     id="fullName"
                                     type="text"
                                     value={formData.fullName}
-                                    onChange={(e) => {
+                                    onChange={(e) =>
+                                    {
                                         setFormData(prev => ({ ...prev, fullName: e.target.value }));
                                         setErrors(prev => ({ ...prev, fullName: undefined }));
                                     }}
@@ -225,7 +253,8 @@ export const BusinessApplicationForm: React.FC = () => {
                                     id="email"
                                     type="email"
                                     value={formData.email}
-                                    onChange={(e) => {
+                                    onChange={(e) =>
+                                    {
                                         setFormData(prev => ({ ...prev, email: e.target.value }));
                                         setErrors(prev => ({ ...prev, email: undefined }));
                                     }}
@@ -248,7 +277,8 @@ export const BusinessApplicationForm: React.FC = () => {
                                     id="phone"
                                     type="tel"
                                     value={formData.phone}
-                                    onChange={(e) => {
+                                    onChange={(e) =>
+                                    {
                                         setFormData(prev => ({ ...prev, phone: e.target.value }));
                                         setErrors(prev => ({ ...prev, phone: undefined }));
                                     }}
@@ -275,7 +305,8 @@ export const BusinessApplicationForm: React.FC = () => {
                                     id="companyName"
                                     type="text"
                                     value={formData.companyName}
-                                    onChange={(e) => {
+                                    onChange={(e) =>
+                                    {
                                         setFormData(prev => ({ ...prev, companyName: e.target.value }));
                                         setErrors(prev => ({ ...prev, companyName: undefined }));
                                     }}
@@ -298,7 +329,8 @@ export const BusinessApplicationForm: React.FC = () => {
                                     id="position"
                                     type="text"
                                     value={formData.position}
-                                    onChange={(e) => {
+                                    onChange={(e) =>
+                                    {
                                         setFormData(prev => ({ ...prev, position: e.target.value }));
                                         setErrors(prev => ({ ...prev, position: undefined }));
                                     }}
@@ -321,7 +353,8 @@ export const BusinessApplicationForm: React.FC = () => {
                                     <select
                                         id="companySize"
                                         value={formData.companySize}
-                                        onChange={(e) => {
+                                        onChange={(e) =>
+                                        {
                                             setFormData(prev => ({ ...prev, companySize: e.target.value }));
                                             setErrors(prev => ({ ...prev, companySize: undefined }));
                                         }}
@@ -350,7 +383,8 @@ export const BusinessApplicationForm: React.FC = () => {
                                         id="industry"
                                         type="text"
                                         value={formData.industry}
-                                        onChange={(e) => {
+                                        onChange={(e) =>
+                                        {
                                             setFormData(prev => ({ ...prev, industry: e.target.value }));
                                             setErrors(prev => ({ ...prev, industry: undefined }));
                                         }}
@@ -379,7 +413,8 @@ export const BusinessApplicationForm: React.FC = () => {
                                     <select
                                         id="projectType"
                                         value={formData.projectType}
-                                        onChange={(e) => {
+                                        onChange={(e) =>
+                                        {
                                             setFormData(prev => ({ ...prev, projectType: e.target.value }));
                                         }}
                                         className="w-full pl-12 py-6 border rounded-md appearance-none border-indigo-200 focus:border-indigo-500 bg-white"
@@ -404,7 +439,8 @@ export const BusinessApplicationForm: React.FC = () => {
                                     <select
                                         id="projectStatus"
                                         value={formData.projectStatus}
-                                        onChange={(e) => {
+                                        onChange={(e) =>
+                                        {
                                             setFormData(prev => ({ ...prev, projectStatus: e.target.value }));
                                         }}
                                         className="w-full pl-12 py-6 border rounded-md appearance-none border-indigo-200 focus:border-indigo-500 bg-white"
@@ -429,7 +465,8 @@ export const BusinessApplicationForm: React.FC = () => {
                                 <textarea
                                     id="requirements"
                                     value={formData.requirements}
-                                    onChange={(e) => {
+                                    onChange={(e) =>
+                                    {
                                         setFormData(prev => ({ ...prev, requirements: e.target.value }));
                                         setErrors(prev => ({ ...prev, requirements: undefined }));
                                     }}
@@ -452,7 +489,8 @@ export const BusinessApplicationForm: React.FC = () => {
                             <Checkbox
                                 id="terms"
                                 checked={formData.acceptedTerms}
-                                onCheckedChange={(checked: boolean) => {
+                                onCheckedChange={(checked: boolean) =>
+                                {
                                     setFormData(prev => ({ ...prev, acceptedTerms: checked }));
                                     setErrors(prev => ({ ...prev, acceptedTerms: undefined }));
                                 }}

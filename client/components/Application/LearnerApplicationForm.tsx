@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useState } from 'react';
-import {
+import
+{
     UploadCloud,
     CheckCircle2,
     AlertTriangle,
@@ -17,7 +18,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from 'next/navigation';
-import {
+import
+{
     Dialog,
     DialogContent,
     DialogDescription,
@@ -25,7 +27,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import {
+import
+{
     Card,
     CardContent,
     CardDescription,
@@ -35,8 +38,10 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useToast } from '@/hooks/use-toast';
 import TermsAndConditions from '../utils/TermsAndConditions';
+import { API_URL } from '../utils/config';
 
-interface FormData {
+interface FormData
+{
     fullName: string;
     email: string;
     phone: string;
@@ -47,7 +52,8 @@ interface FormData {
     acceptedHiringPolicy: boolean;
 }
 
-export const LearnerApplicationForm: React.FC = () => {
+export const LearnerApplicationForm: React.FC = () =>
+{
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState<FormData>({
@@ -64,38 +70,48 @@ export const LearnerApplicationForm: React.FC = () => {
     const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
     const router = useRouter()
 
-    const validateForm = (): boolean => {
+    const validateForm = (): boolean =>
+    {
         const newErrors: Partial<Record<keyof FormData, string>> = {};
 
-        if (!formData.fullName.trim()) {
+        if (!formData.fullName.trim())
+        {
             newErrors.fullName = 'Full name is required';
         }
 
-        if (!formData.email.trim()) {
+        if (!formData.email.trim())
+        {
             newErrors.email = 'Email is required';
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email))
+        {
             newErrors.email = 'Invalid email address';
         }
 
-        if (!formData.phone.trim()) {
+        if (!formData.phone.trim())
+        {
             newErrors.phone = 'Phone number is required';
-        } else if (!/^\+?[\d\s-]{10,}$/.test(formData.phone)) {
+        } else if (!/^\+?[\d\s-]{10,}$/.test(formData.phone))
+        {
             newErrors.phone = 'Invalid phone number';
         }
 
-        if (!formData.cv) {
+        if (!formData.cv)
+        {
             newErrors.cv = 'CV is required';
         }
 
-        if (!formData.acceptedTerms) {
+        if (!formData.acceptedTerms)
+        {
             newErrors.acceptedTerms = 'You must accept the terms and conditions';
         }
 
-        if (!formData.acceptedPayment) {
+        if (!formData.acceptedPayment)
+        {
             newErrors.acceptedPayment = 'You must acknowledge the payment terms';
         }
 
-        if (!formData.acceptedHiringPolicy) {
+        if (!formData.acceptedHiringPolicy)
+        {
             newErrors.acceptedHiringPolicy = 'You must acknowledge the assessment and hiring policy';
         }
 
@@ -103,10 +119,12 @@ export const LearnerApplicationForm: React.FC = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) =>
+    {
         e.preventDefault();
 
-        if (!validateForm()) {
+        if (!validateForm())
+        {
             toast({
                 title: "Validation Error",
                 description: "Please check all required fields",
@@ -120,7 +138,8 @@ export const LearnerApplicationForm: React.FC = () => {
         formDataToSend.append("email", formData.email);
         formDataToSend.append("phone", formData.phone);
         formDataToSend.append("interests", formData.interests);
-        if (formData.cv) {
+        if (formData.cv)
+        {
             formDataToSend.append("cv", formData.cv);
         }
         formDataToSend.append("acceptedTerms", formData.acceptedTerms.toString());
@@ -128,18 +147,20 @@ export const LearnerApplicationForm: React.FC = () => {
         formDataToSend.append("acceptedHiringPolicy", formData.acceptedHiringPolicy.toString());
 
         setIsSubmitting(true);
-        try {
+        try
+        {
             // Simulated API call
             // const response = await fetch('https://hitoai-backend.onrender.com/api/v1/eep/apply', {
             //     method: 'POST',
             //     body: formDataToSend
             // });
-            const response = await fetch('http://localhost:8000/api/v1/eep/apply', {
+            const response = await fetch(`${API_URL}/apply`, {
                 method: 'POST',
                 body: formDataToSend
             });
 
-            if (!response.ok) {
+            if (!response.ok)
+            {
                 throw new Error('Network response was not ok');
             }
 
@@ -163,22 +184,27 @@ export const LearnerApplicationForm: React.FC = () => {
                 acceptedPayment: false,
                 acceptedHiringPolicy: false
             });
-        } catch (error) {
+        } catch (error)
+        {
             toast({
                 title: "Submission Failed",
                 description: "Please try again later",
                 variant: "destructive"
             });
             console.log(error)
-        } finally {
+        } finally
+        {
             setIsSubmitting(false);
         }
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    {
         const file = e.target.files?.[0];
-        if (file) {
-            if (file.size > 5 * 1024 * 1024) {
+        if (file)
+        {
+            if (file.size > 5 * 1024 * 1024)
+            {
                 setErrors(prev => ({
                     ...prev,
                     cv: 'File size should not exceed 5MB'
@@ -187,7 +213,8 @@ export const LearnerApplicationForm: React.FC = () => {
             }
 
             const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-            if (!allowedTypes.includes(file.type)) {
+            if (!allowedTypes.includes(file.type))
+            {
                 setErrors(prev => ({
                     ...prev,
                     cv: 'Please upload a PDF or Word document'
@@ -200,7 +227,8 @@ export const LearnerApplicationForm: React.FC = () => {
         }
     };
 
-    const removeFile = () => {
+    const removeFile = () =>
+    {
         setFormData(prev => ({ ...prev, cv: null }));
     };
 
@@ -236,7 +264,8 @@ export const LearnerApplicationForm: React.FC = () => {
                                     id="fullName"
                                     type="text"
                                     value={formData.fullName}
-                                    onChange={(e) => {
+                                    onChange={(e) =>
+                                    {
                                         setFormData(prev => ({ ...prev, fullName: e.target.value }));
                                         setErrors(prev => ({ ...prev, fullName: undefined }));
                                     }}
@@ -259,7 +288,8 @@ export const LearnerApplicationForm: React.FC = () => {
                                     id="email"
                                     type="email"
                                     value={formData.email}
-                                    onChange={(e) => {
+                                    onChange={(e) =>
+                                    {
                                         setFormData(prev => ({ ...prev, email: e.target.value }));
                                         setErrors(prev => ({ ...prev, email: undefined }));
                                     }}
@@ -282,7 +312,8 @@ export const LearnerApplicationForm: React.FC = () => {
                                     id="phone"
                                     type="tel"
                                     value={formData.phone}
-                                    onChange={(e) => {
+                                    onChange={(e) =>
+                                    {
                                         setFormData(prev => ({ ...prev, phone: e.target.value }));
                                         setErrors(prev => ({ ...prev, phone: undefined }));
                                     }}
@@ -305,7 +336,8 @@ export const LearnerApplicationForm: React.FC = () => {
                                 <textarea
                                     id="interests"
                                     value={formData.interests}
-                                    onChange={(e) => {
+                                    onChange={(e) =>
+                                    {
                                         setFormData(prev => ({ ...prev, interests: e.target.value }));
                                         setErrors(prev => ({ ...prev, interests: undefined }));
                                     }}
@@ -375,7 +407,8 @@ export const LearnerApplicationForm: React.FC = () => {
                                     <Checkbox
                                         id="terms"
                                         checked={formData.acceptedTerms}
-                                        onCheckedChange={(checked: boolean) => {
+                                        onCheckedChange={(checked: boolean) =>
+                                        {
                                             setFormData(prev => ({ ...prev, acceptedTerms: checked }));
                                             setErrors(prev => ({ ...prev, acceptedTerms: undefined }));
                                         }}
@@ -415,7 +448,8 @@ export const LearnerApplicationForm: React.FC = () => {
                                     <Checkbox
                                         id="payment"
                                         checked={formData.acceptedPayment}
-                                        onCheckedChange={(checked: boolean) => {
+                                        onCheckedChange={(checked: boolean) =>
+                                        {
                                             setFormData(prev => ({ ...prev, acceptedPayment: checked }));
                                             setErrors(prev => ({ ...prev, acceptedPayment: undefined }));
                                         }}
@@ -423,7 +457,7 @@ export const LearnerApplicationForm: React.FC = () => {
                                     />
                                 </div>
                                 <Label htmlFor="payment" className="text-sm text-gray-700">
-                                    I am aware that upon acceptance of the offer, the cost of the 3-month program is €700, which must be paid by April 1st.
+                                    I am aware that upon acceptance of the offer, the cost of the 3-month program is €700. This fee needs to be paid before the Program starts.
                                 </Label>
                             </div>
                             {errors.acceptedPayment && (
@@ -439,7 +473,8 @@ export const LearnerApplicationForm: React.FC = () => {
                                     <Checkbox
                                         id="hiringPolicy"
                                         checked={formData.acceptedHiringPolicy}
-                                        onCheckedChange={(checked: boolean) => {
+                                        onCheckedChange={(checked: boolean) =>
+                                        {
                                             setFormData(prev => ({ ...prev, acceptedHiringPolicy: checked }));
                                             setErrors(prev => ({ ...prev, acceptedHiringPolicy: undefined }));
                                         }}

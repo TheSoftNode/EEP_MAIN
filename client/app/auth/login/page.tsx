@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import {
+import
+{
     LogIn,
     Mail,
     Eye,
@@ -20,7 +21,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
+import
+{
     Card,
     CardContent,
     CardDescription,
@@ -30,7 +32,8 @@ import {
 } from "@/components/ui/card";
 import { useToast } from '@/hooks/use-toast';
 
-export default function LoginPage() {
+export default function LoginPage()
+{
     const router = useRouter();
     const { toast } = useToast();
     const [email, setEmail] = useState('');
@@ -40,11 +43,13 @@ export default function LoginPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
 
-    const handleLogin = async (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) =>
+    {
         e.preventDefault();
         setError('');
 
-        if (!email || !password) {
+        if (!email || !password)
+        {
             setError('Please enter both email and password');
             return;
         }
@@ -52,9 +57,11 @@ export default function LoginPage() {
         setIsLoading(true);
 
         // Simulated API call
-        try {
+        try
+        {
             // Replace with actual authentication logic
-            setTimeout(() => {
+            setTimeout(() =>
+            {
                 // Simulate login success
                 toast({
                     title: "Login Successful",
@@ -62,14 +69,16 @@ export default function LoginPage() {
                 });
                 router.push('/dashboard');
             }, 1500);
-        } catch (error) {
+        } catch (error)
+        {
             setError('Invalid email or password. Please try again.');
             toast({
                 title: "Login Failed",
                 description: "Please check your credentials and try again.",
                 variant: "destructive"
             });
-        } finally {
+        } finally
+        {
             setIsLoading(false);
         }
     };
@@ -113,10 +122,10 @@ export default function LoginPage() {
                 />
             </div>
 
-            <div className="container max-w-6xl mx-auto z-10">
-                <div className="flex flex-col lg:flex-row gap-10 items-center">
+            <div className="max-w-6xl mx-auto z-10">
+                <div className="flex flex-col lg:flex-row gap-16 items-center">
                     {/* Left panel - branding and information */}
-                    <div className="flex-1 max-w-md mx-auto lg:mx-0">
+                    <div className="flex-1 max-w-lg mx-auto lg:mx-0">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -188,6 +197,37 @@ export default function LoginPage() {
                                     <CardDescription>
                                         Enter your credentials to access your account
                                     </CardDescription>
+
+                                    {/* Add this right below the CardDescription */}
+                                    <div className="mt-4 bg-blue-50 border border-blue-100 rounded-lg p-4 text-sm">
+                                        <div className="flex">
+                                            <div className="flex-shrink-0">
+                                                <svg className="h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                                                </svg>
+                                            </div>
+                                            <div className="ml-3">
+                                                <h3 className="font-medium text-blue-800">Application Required</h3>
+                                                <div className="mt-1 text-indigo-700">
+                                                    <p>Your application needs to be accepted before you can log in. Login credentials will be provided after your application is approved.</p>
+                                                    <div className="mt-2 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
+                                                        <Link href="/application" className="inline-flex items-center text-sm font-medium text-white hover:text-white hover:bg-blue-900 bg-blue-700  focus:ring-4 focus:ring-blue-200 rounded-lg px-4 py-1 shadow-sm transition duration-150 ease-in-out">
+                                                            <span>Apply as Learner</span>
+                                                            <svg className="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                                                            </svg>
+                                                        </Link>
+                                                        <Link href="/business-application" className="inline-flex items-center text-sm font-medium text-indigo-700 hover:text-indigo-900 border border-indigo-200 rounded-md px-3 py-1">
+                                                            <span>Apply as Business</span>
+                                                            <svg className="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                                                            </svg>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </CardHeader>
                                 <CardContent>
                                     <form onSubmit={handleLogin} className="space-y-4">
